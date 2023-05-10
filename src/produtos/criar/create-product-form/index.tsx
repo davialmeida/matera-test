@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button } from '@mui/material';
 import { HTMLAttributes, useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import ImportFileCard from '@/components/import-file/import-file-card';
 import { Product, ProductSchema } from '@/produtos/types';
@@ -15,12 +16,17 @@ import { CreateProductFormWrapper } from './styles';
 export type CreateProductFormProps = HTMLAttributes<HTMLDivElement>;
 
 const CreateProductForm: React.FC<CreateProductFormProps> = (props) => {
+  const navigate = useNavigate();
   const { control, handleSubmit, formState } = useForm<Product>({
     resolver: zodResolver(ProductSchema),
   });
   const { handleCreateProduct } = useContext(CreateProductContext);
 
   const errors = formState.errors;
+
+  const backAction = () => {
+    navigate('/produtos');
+  };
 
   return (
     <CreateProductFormWrapper {...props}>
@@ -117,7 +123,9 @@ const CreateProductForm: React.FC<CreateProductFormProps> = (props) => {
         />
 
         <Box display="flex" justifyContent="flex-end" gap="1em">
-          <Button color="inherit">Voltar</Button>
+          <Button color="inherit" onClick={backAction}>
+            Voltar
+          </Button>
           <Button type="submit" variant="contained" color="primary">
             Criar
           </Button>
