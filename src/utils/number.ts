@@ -21,6 +21,10 @@ class NumberUtils {
   static maskCpf(cpf: string): string {
     return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
   }
+
+  static formatNumber(value: number): string {
+    return new Intl.NumberFormat('pt-BR').format(value);
+  }
 }
 
 export default NumberUtils;
