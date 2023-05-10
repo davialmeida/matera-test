@@ -1,3 +1,4 @@
+import { Visibility } from '@mui/icons-material';
 import styled from 'styled-components';
 
 export const ProductImage = styled.img`
@@ -10,4 +11,8 @@ export const ProductName = styled.div`
   display: flex;
   align-items: center;
   gap: 2em;
+`;
+
+export const ViewButton = styled(Visibility)`
+  cursor: pointer;
 `;

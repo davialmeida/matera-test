@@ -8,16 +8,18 @@ import {
   TableRow,
 } from '@mui/material';
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import NumberUtils from '@/utils/number';
 
 import ListarProdutosContext from '../contexts/listar-produtos-context';
-import { ProductImage, ProductName } from './styles';
+import { ProductImage, ProductName, ViewButton } from './styles';
 
 const PagedProdutoTable: React.FC = () => {
   const { produtos } = useContext(ListarProdutosContext);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(15);
+  const navigate = useNavigate();
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -41,6 +43,7 @@ const PagedProdutoTable: React.FC = () => {
             <TableCell>Estoque</TableCell>
             <TableCell>Vendas</TableCell>
             <TableCell>Marca</TableCell>
+            <TableCell align="right">Ações</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -64,6 +67,11 @@ const PagedProdutoTable: React.FC = () => {
                 <TableCell>{produto.qt_estoque}</TableCell>
                 <TableCell>{produto.qt_vendas}</TableCell>
                 <TableCell>{produto.marca}</TableCell>
+                <TableCell align="right">
+                  <ViewButton
+                    onClick={() => navigate(`/produtos/visualizar/${produto.id}`)}
+                  />
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>
