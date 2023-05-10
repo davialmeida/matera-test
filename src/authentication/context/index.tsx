@@ -9,6 +9,7 @@ export type AuthenticationContextType = {
   user: User;
   signed: boolean;
   handleSetUser: (user: User) => void;
+  logout: () => void;
 };
 
 export const AuthenticationContext = createContext<AuthenticationContextType>({
@@ -16,6 +17,9 @@ export const AuthenticationContext = createContext<AuthenticationContextType>({
   signed: false,
   handleSetUser: () => {
     throw new Error('handleSetUser function must be overridden');
+  },
+  logout: () => {
+    throw new Error('logout function must be overridden');
   },
 });
 
@@ -50,12 +54,20 @@ export const AuthenticationProvider: FC = ({ children }) => {
     setSigned(!!user);
   };
 
+  const logout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    setSigned(false);
+    window.location.reload();
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
         user,
         signed,
         handleSetUser,
+        logout,
       }}
     >
       {children}

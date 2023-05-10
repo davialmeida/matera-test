@@ -3,23 +3,10 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import { Inbox, Mail } from '@mui/icons-material';
-import {
-  AppBar,
-  Box,
-  CssBaseline,
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { AppBar, Box, CssBaseline, Drawer, Toolbar, Typography } from '@mui/material';
+import { PropsWithChildren, useEffect } from 'react';
 
+import LoggedUser from './logged-user';
 import Menu from './menu';
 
 export type LayoutProps = PropsWithChildren<{
@@ -35,33 +22,22 @@ const Layout = (props: LayoutProps) => {
 
   return (
     <>
-      {/*<AppBar position="static">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerOpen}
-          >
-            MenuIcon
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Dashboard
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Box display="flex">
-        <Menu />
-        <PageContainer maxWidth={false}>{props.children}</PageContainer>
-  </Box>*/}
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <AppBar
+          position="fixed"
+          sx={{
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+            display: 'flex',
+            flexDirection: 'row',
+          }}
+        >
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
               Dashboard
             </Typography>
           </Toolbar>
+          <LoggedUser />
         </AppBar>
         <Drawer
           variant="permanent"
